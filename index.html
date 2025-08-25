@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram パフォーマンス詳細分析レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #fdf8f5; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6f61;
+        }
+        .kpi-label {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#ff6f61]">Instagramアカウント詳細分析レポート</h1>
+            <p class="text-lg text-gray-600 mt-2">広告依存からの脱却とオーガニック成長への道筋</p>
+            <p class="text-sm text-gray-500 mt-1">分析期間: 2025年7月1日 - 2025年8月21日</p>
+        </header>
+
+        <main class="space-y-16">
+            
+            <section id="summary" class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-[#ff6f61] mb-4 text-center">エグゼクティブサマリー</h2>
+                <p class="max-w-3xl mx-auto text-center text-gray-600 mb-8">当アカウントは、7月の広告出稿によりフォロワー数を急増させましたが、広告停止後は成長が停滞し、オーガニックでの集客力に深刻な課題を抱えています。フォロワーは**大阪・兵庫在住の25-34歳女性**に強く集中しており、この明確なターゲット層が最大の資産です。しかし、投稿頻度の低さがエンゲージメントの機会損失を招いています。今後は、この**地域とターゲット層に特化したコンテンツを継続的に発信**し、自律的な成長基盤を築くことが急務です。</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="kpi-card">
+                        <div class="kpi-value">143%</div>
+                        <div class="kpi-label">7月のフォロワー増加率</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">52.6%</div>
+                        <div class="kpi-label">大阪・兵庫のフォロワー比率</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">9.38%</div>
+                        <div class="kpi-label">唯一の投稿の高いエンゲージメント率</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="follower-growth">
+                <h2 class="text-2xl font-bold text-[#ff6f61] mb-2 text-center">フォロワー数の推移：広告が生んだ「砂上の楼閣」</h2>
+                <p class="text-center text-gray-600 mb-6 max-w-2xl mx-auto">7月は広告効果でフォロワーが劇的に増加しましたが、8月に広告を停止すると成長は止まり、減少に転じました。これはオーガニックでのフォロワー獲得力が非常に弱いことを示しており、持続的な成長モデルの構築が急務です。</p>
+                <div class="bg-white rounded-lg shadow-md p-6 chart-container h-96 md:h-[450px] max-h-[500px]">
+                    <canvas id="followerChart"></canvas>
+                </div>
+            </section>
+
+            <section id="audience-demographics">
+                <h2 class="text-2xl font-bold text-[#ff6f61] mb-2 text-center">オーディエンスの肖像：明確なターゲット層が最大の強み</h2>
+                 <p class="text-center text-gray-600 mb-6 max-w-2xl mx-auto">フォロワーは「大阪・兵庫在住の25-34歳女性」という、ウェディングビジネスにとって理想的な層に集中しています。この強力な基盤を活かし、地域に根差したコンテンツでエンゲージメントを深めるべきです。</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-center mb-4">年齢・性別構成：25-34歳がコアターゲット</h3>
+                        <div class="chart-container h-80 md:h-96">
+                            <canvas id="ageGenderChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-center mb-4">地域分布：大阪・兵庫で過半数</h3>
+                        <div class="chart-container h-80 md:h-96">
+                            <canvas id="regionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="engagement-issues">
+                <h2 class="text-2xl font-bold text-[#ff6f61] mb-2 text-center">エンゲージメントの現状：深刻なデータ不足と機会損失</h2>
+                <p class="text-center text-gray-600 mb-6 max-w-2xl mx-auto">分析期間中のオーガニック投稿はわずか1件。これでは、どのようなコンテンツが響くのか、いつ投稿すべきかの判断が不可能です。投稿頻度を上げ、データに基づいたPDCAサイクルを回すことが不可欠です。</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-center mb-4">プロフィールへの関心度と広告依存</h3>
+                    <p class="text-center text-gray-600 mb-4">プロフィール閲覧数も広告期間に依存。オーガニックでの発見が極めて少ない状況です。</p>
+                    <div class="chart-container h-96 md:h-[450px] max-h-[500px]">
+                        <canvas id="profileInsightsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ad-performance">
+                <h2 class="text-2xl font-bold text-[#ff6f61] mb-2 text-center">広告パフォーマンス分析：費用対効果に見る成功のヒント</h2>
+                <p class="text-center text-gray-600 mb-6 max-w-2xl mx-auto">広告キャンペーンの中でも、クリック単価やCTRに大きな差がありました。特に「プロフィール訪問」を目的とした広告や、具体的なベネフィットを提示した小規模キャンペーンが高い効率を示しており、今後の広告戦略の指針となります。</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="border-b-2 p-4 text-[#ff6f61]">キャンペーン名</th>
+                                    <th class="border-b-2 p-4 text-[#ff6f61]">目的</th>
+                                    <th class="border-b-2 p-4 text-[#ff6f61]">結果単価(円)</th>
+                                    <th class="border-b-2 p-4 text-[#ff6f61]">CTR(%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-rose-50 font-semibold bg-green-100">
+                                    <td class="border-b p-4">たくさんのご応募ありがとう...</td>
+                                    <td class="border-b p-4">リンククリック</td>
+                                    <td class="border-b p-4">22.05</td>
+                                    <td class="border-b p-4">5.02</td>
+                                </tr>
+                                <tr class="hover:bg-rose-50 font-semibold bg-green-100">
+                                    <td class="border-b p-4">モニターキャンペーン開催中！(1)</td>
+                                    <td class="border-b p-4">リンククリック</td>
+                                    <td class="border-b p-4">24.04</td>
+                                    <td class="border-b p-4">5.48</td>
+                                </tr>
+                                <tr class="hover:bg-rose-50 font-semibold bg-green-100">
+                                    <td class="border-b p-4">新しいトラフィックキャンペーン</td>
+                                    <td class="border-b p-4">プロフィール訪問</td>
+                                    <td class="border-b p-4">30.34</td>
+                                    <td class="border-b p-4">4.42</td>
+                                </tr>
+                                <tr class="hover:bg-rose-50">
+                                    <td class="border-b p-4">BNW_モニターCP</td>
+                                    <td class="border-b p-4">リンククリック</td>
+                                    <td class="border-b p-4">66.01</td>
+                                    <td class="border-b p-4">1.29</td>
+                                </tr>
+                                 <tr class="hover:bg-rose-50">
+                                    <td class="border-b p-4">📸フォト&ムービー撮影...</td>
+                                    <td class="border-b p-4">リンククリック</td>
+                                    <td class="border-b p-4">68.75</td>
+                                    <td class="border-b p-4">1.65</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="mt-4 text-sm text-gray-500">※費用対効果の高いキャンペーンを緑色でハイライトしています。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="recommendations" class="bg-[#ff6f61] text-white rounded-lg shadow-xl p-8">
+                <h2 class="text-3xl font-bold text-center mb-6">今後の戦略提言：持続的成長への3つのアクション</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-[#ffcc5c] text-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-3">📍</div>
+                        <h3 class="text-xl font-bold mb-2">地域特化コンテンツの強化</h3>
+                        <p>「#関西花嫁」「#神戸ウェディング」など、大阪・兵庫のターゲットに響くハッシュタグとコンテンツで、地域No.1の存在感を目指します。</p>
+                    </div>
+                    <div class="bg-[#ffcc5c] text-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-3">📈</div>
+                        <h3 class="text-xl font-bold mb-2">オーガニック成長への転換</h3>
+                        <p>週2〜3回の投稿を基本とし、特にエンゲージメントの高かったリール動画を主力に。データ分析に基づき、コンテンツの質と投稿タイミングを最適化します。</p>
+                    </div>
+                    <div class="bg-[#ffcc5c] text-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-3">🎯</div>
+                        <h3 class="text-xl font-bold mb-2">広告運用の最適化</h3>
+                        <p>広告を再開する際は、ターゲットを大阪・兵庫の25-34歳に絞り、費用対効果の高かった「プロフィール訪問」目的のキャンペーンに予算を集中させます。</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 py-4 border-t border-gray-200">
+            <p class="text-gray-500 text-sm">© 2025 Instagram Performance Detailed Analysis Report</p>
+        </footer>
+    </div>
+
+<script>
+const energeticPalette = {
+    primary: '#ff6f61',
+    secondary: '#ffcc5c',
+    accent: '#88d8b0',
+    neutral: '#6c757d',
+    font: '#333333',
+    female: '#ff6f61', 
+    male: '#ffcc5c' 
+};
+
+const processLabels = (labels) => {
+    const maxLen = 16;
+    return labels.map(label => {
+        if (typeof label === 'string' && label.length > maxLen) {
+            const words = label.split(' ');
+            const newLabel = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).length > maxLen) {
+                    newLabel.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine.length === 0 ? '' : ' ') + word;
+                }
+            });
+            newLabel.push(currentLine);
+            return newLabel;
+        }
+        return label;
+    });
+};
+
+const tooltipTitleCallback = (tooltipItems) => {
+    const item = tooltipItems[0];
+    let label = item.chart.data.labels[item.dataIndex];
+    if (Array.isArray(label)) {
+        return label.join(' ');
+    }
+    return label;
+};
+
+const defaultChartOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+        legend: {
+            labels: {
+                color: energeticPalette.font,
+                font: {
+                    family: "'Inter', 'Noto Sans JP', sans-serif"
+                }
+            }
+        },
+        tooltip: {
+            callbacks: {
+                title: tooltipTitleCallback
+            },
+            bodyFont: {
+                family: "'Inter', 'Noto Sans JP', sans-serif"
+            },
+            titleFont: {
+                family: "'Inter', 'Noto Sans JP', sans-serif"
+            }
+        }
+    },
+    scales: {
+        x: {
+            ticks: { color: energeticPalette.font, font: { family: "'Inter', 'Noto Sans JP', sans-serif" } },
+            grid: { display: false }
+        },
+        y: {
+            ticks: { color: energeticPalette.font, font: { family: "'Inter', 'Noto Sans JP', sans-serif" } },
+            grid: { color: '#e9ecef' }
+        }
+    }
+};
+
+const followerData = {
+    labels: ['7/1', '7/5', '7/9', '7/13', '7/17', '7/21', '7/25', '7/29', '8/2', '8/6', '8/10', '8/14', '8/18', '8/21'],
+    datasets: [{
+        label: 'フォロワー数',
+        data: [53, 55, 57, 62, 78, 93, 114, 129, 129, 122, 117, 114, 114, 114],
+        borderColor: energeticPalette.primary,
+        backgroundColor: 'rgba(255, 111, 97, 0.1)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: energeticPalette.primary,
+        pointBorderColor: '#fff',
+        pointHoverRadius: 7,
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: energeticPalette.primary,
+        borderWidth: 3
+    }]
+};
+new Chart(document.getElementById('followerChart'), {
+    type: 'line',
+    data: followerData,
+    options: { ...defaultChartOptions,
+        scales: {
+            ...defaultChartOptions.scales,
+            y: { ...defaultChartOptions.scales.y, beginAtZero: false }
+        }
+    }
+});
+
+const ageGenderData = {
+    labels: ['18-24歳', '25-34歳', '35-44歳', '45-54歳', '65歳以上'],
+    datasets: [
+        {
+            label: '女性',
+            data: [1, 20, 5, 3, 3],
+            backgroundColor: energeticPalette.female,
+            borderRadius: 4
+        },
+        {
+            label: '男性',
+            data: [0, 11, 2, 1, 4],
+            backgroundColor: energeticPalette.male,
+            borderRadius: 4
+        }
+    ]
+};
+new Chart(document.getElementById('ageGenderChart'), {
+    type: 'bar',
+    data: ageGenderData,
+    options: { ...defaultChartOptions,
+        scales: {
+            x: { ...defaultChartOptions.scales.x, stacked: true },
+            y: { ...defaultChartOptions.scales.y, stacked: true, title: { display: true, text: 'フォロワー数（人）' } }
+        }
+    }
+});
+
+const regionData = {
+    labels: ['大阪', '兵庫', '愛知', 'その他'],
+    datasets: [{
+        label: 'フォロワー数',
+        data: [34, 26, 14, 40],
+        backgroundColor: [
+            energeticPalette.primary,
+            energeticPalette.secondary,
+            energeticPalette.accent,
+            '#dee2e6'
+        ],
+        borderColor: '#ffffff',
+        borderWidth: 4,
+        hoverOffset: 10
+    }]
+};
+new Chart(document.getElementById('regionChart'), {
+    type: 'doughnut',
+    data: regionData,
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { color: energeticPalette.font, font: { family: "'Inter', 'Noto Sans JP', sans-serif" } }
+            },
+            tooltip: {
+                callbacks: {
+                    title: tooltipTitleCallback
+                }
+            }
+        }
+    }
+});
+
+const profileInsightsData = {
+    labels: ['7/15', '7/18', '7/21', '7/24', '7/27', '7/30', '8/2', '8/5', '8/8', '8/11', '8/14', '8/17', '8/20'],
+    datasets: [
+        {
+            label: 'プロフィールビュー数',
+            data: [31, 53, 84, 82, 113, 65, 25, 22, 10, 5, 1, 2, 2],
+            borderColor: energeticPalette.primary,
+            backgroundColor: 'transparent',
+            type: 'line',
+            yAxisID: 'y',
+            tension: 0.4,
+            borderWidth: 3
+        },
+        {
+            label: 'ウェブサイトタップ数',
+            data: [1, 0, 4, 8, 2, 4, 1, 9, 0, 0, 0, 0, 0],
+            backgroundColor: energeticPalette.secondary,
+            type: 'bar',
+            yAxisID: 'y1',
+            borderRadius: 4
+        }
+    ]
+};
+new Chart(document.getElementById('profileInsightsChart'), {
+    type: 'bar',
+    data: profileInsightsData,
+    options: { ...defaultChartOptions,
+        scales: {
+            x: { ...defaultChartOptions.scales.x },
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: { display: true, text: 'プロフィールビュー数' }
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                title: { display: true, text: 'ウェブサイトタップ数' },
+                grid: { drawOnChartArea: false }
+            }
+        }
+    }
+});
+
+</script>
+</body>
+</html>
